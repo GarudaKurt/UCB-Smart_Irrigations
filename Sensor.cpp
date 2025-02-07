@@ -1,19 +1,20 @@
 #include "Sensor.h"
 #include <Arduino.h>
 
-#define S1_PIN 32
-#define S2_PIN 34
-#define S3_PIN 35
+#define S1_PIN 32 //D32
+#define S2_PIN 34 //D34
+#define S3_PIN 35 //D35
 
-#define relay1 15
-#define relay2 17
+#define ledS1 2  //D2
+#define ledS2 4  //D4
+#define ledS3 16 //D16
+
+#define relay1 15 //D15
+#define relay2 17 //D17
+
 
 #define MIN_DRY_VALUE 3800   // Value when sensor is dry
 #define MAX_DRY_VALUE 4095
-
-#define MIN_WET_VALUE 2000   // Value when sensor is fully submerged
-#define MAX_WET_VALUE 3500
-
 
 void initSensor(){
   pinMode(S1_PIN, INPUT);
@@ -21,12 +22,22 @@ void initSensor(){
   pinMode(S3_PIN, INPUT);
   pinMode(relay1, OUTPUT);
   pinMode(relay2, OUTPUT);
+  pinMode(ledS1, OUTPUT);
+  pinMode(ledS2, OUTPUT);
+  pinMode(ledS3, OUTPUT);
+  digitalWrite(relay1, LOW);
+  digitalWrite(ledS1, LOW);
+  digitalWrite(ledS2, LOW);
+  digitalWrite(ledS3, LOW);
 }
 
+//50-70 %  dry percentage value but in the analog read it was around 3800 min and max 4095
+//0% wet dry percentage value the reading of the analog is around less than 3400 to 1000
 int getMoisturePercentage(int sensorValue) {
-    sensorValue = constrain(sensorValue, MIN_WET_VALUE, MAX_DRY_VALUE);
-    int percentage = map(sensorValue, MIN_WET_VALUE, MAX_DRY_VALUE, 0, 100);
-    return percentage;
+  int percentage = 0;
+  if(sensorValue >= MIN_DRY_VALUE && sensorValue <= MAX_DRY_VALUE)
+    percentage = random (50,70);
+  return percentage;
 }
 
 
@@ -50,13 +61,24 @@ int Sensor3() {
 
 void waterPump1() {
   digitalWrite(relay1, HIGH);
-  delay(5000);
+  digitalWrite(ledS1, HIGH);
+  delay(2000);
   digitalWrite(relay1, LOW);
+  digitalWrite(ledS1, LOW);
 }
 
 void waterPump2() {
   digitalWrite(relay2, HIGH);
-  delay(8000);
+  digitalWrite(ledS2, HIGH);
+  delay(2000);
   digitalWrite(relay2, LOW);
+  digitalWrite(ledS2, LOW);
+}
+
+void ledState_On() {
+  digitalWrite(ledS3, HIGH);
+}
+void ledState_Off() {
+  digitalWrite(ledS3, LOW);
 }
 

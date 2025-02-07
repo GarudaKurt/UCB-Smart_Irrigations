@@ -26,11 +26,20 @@ void loop() {
   Serial.print("Sensor 3: ");
   Serial.print(s3);
   Serial.println("%");
+  
+  if(s3 >= 50)
+    ledState_On();
+  else
+    ledState_Off();
 
-  // if(s1 == 100)
-  //   waterPump1();
-  // else if(s2 == 100)
-  //   waterPump2();
+  if(s1 >= 50) {
+    Serial.println("Pass here!");
+    waterPump1();
+  }
+  else if(s2 >= 50) {
+    Serial.println("Pass here 1!");
+    waterPump2();
+  }
 
   delay(1000);
 }
