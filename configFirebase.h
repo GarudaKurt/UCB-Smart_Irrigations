@@ -6,4 +6,5 @@ float sendS1();
 float sendS2();
 float sendS3();
 void readSensor();
+void countrelayActivate();
 #endif
