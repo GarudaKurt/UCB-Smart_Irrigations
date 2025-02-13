@@ -2,6 +2,7 @@
 #include "configFirebase.h"
 #include "Sensor.h"
 
+int cnt = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -34,10 +35,14 @@ void loop() {
 
   if(s1 >= 50) {
     Serial.println("Pass here!");
+    cnt = cnt +1;
+    countrelayActivate(cnt);
     waterPump1();
   }
   else if(s2 >= 50) {
     Serial.println("Pass here 1!");
+    cnt = cnt +1;
+    countrelayActivate(cnt);
     waterPump2();
   }
 
