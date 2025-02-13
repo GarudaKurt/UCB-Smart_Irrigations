@@ -32,7 +32,7 @@ void loop() {
     ledState_On();
   else
     ledState_Off();
-
+  /* Temporary comments this code
   if(s1 >= 50) {
     Serial.println("Pass here!");
     cnt = cnt +1;
@@ -44,7 +44,7 @@ void loop() {
     cnt = cnt +1;
     countrelayActivate(cnt);
     waterPump2();
-  }
+  } */
 
   delay(1000);
 }
