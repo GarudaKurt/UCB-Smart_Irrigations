@@ -58,5 +58,10 @@ void readSensor() {
     if(!success1 || !success2 || !success3)
       Serial.println("Failed to send to firebase");
   }
+}
 
+void countrelayActivate(int cnt) {
+  bool success = Firebase.setInt(fbdo, "/monitoring/cnt", cnt);
+  if(!success)
+    Serial.println("ERROR: to send firebase countrelayActivate");
 }
